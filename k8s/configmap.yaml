@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-app-config
+data:
+  APP_NAME: "Creative Flask Microservice"
+  DB_HOST: "mysql.example.local"

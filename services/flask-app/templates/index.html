@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Flask Microservice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      text-align: center;
+      padding: 3rem;
+    }
+    #quote {
+      font-size: 1.8rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+    .info {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Creative Flask Microservice</h1>
+  <div id="quote">Loading inspirational quote...</div>
+  <div class="info" id="details"></div>
+
+  <script>
+    async function fetchQuote() {
+      try {
+        const response = await fetch('/api');
+        const data = await response.json();
+        document.getElementById('quote').textContent = `"${data.quote_of_the_day}"`;
+        document.getElementById('details').innerHTML = `
+          <strong>App:</strong> ${data.app} <br />
+          <strong>Database Host:</strong> ${data.database_host} <br />
+          <p>${data.message}</p>
+        `;
+      } catch (error) {
+        document.getElementById('quote').textContent = 'Sorry, failed to load quote.';
+      }
+    }
+    fetchQuote();
+  </script>
+
+  <footer>Powered by Flask & Docker | Creative DevOps Project</footer>
+</body>
+</html>
